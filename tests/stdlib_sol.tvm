@@ -1,0 +1,798 @@
+.internal-alias :general_purpose,    1
+
+.selector
+; s0 - selector (0 (internal message), -1 (external message), -2 (tick tock) or 1 (function call by contract))
+; [s1] - function id if s0==1
+; [s2] - message id (int, ext) if s0==1
+SETCP 0          ; -2
+DICTPUSHCONST 32 ; -2 dict 32
+PUSH S2          ; -2 dict 32 -2
+EQINT 1          ; -2 dict 32 -2==1
+PUSHCONT {
+	; -2 dict 32
+	DICTIGETJMP ; nothing
+}
+IFNOTJMP
+PUSHREFCONT ; funId 1 dict 32 cont
+POPCTR c3   ; funId 1 dict 32
+ROT         ; funId dict 32 1
+DROP        ; funId dict 32
+DICTUGETJMP
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; THE CODE BELOW IS GENERATED. DO NOT CHANGE IT!
+
+.macro abi_encode_packed_macro
+;; param: builder
+;; param: arraySize
+;; param: dict
+;; param: valueLength
+; function abi_encode_packed_macro
+; for
+PUSHINT 0
+;; decl: idx
+PUSHCONT {
+	;; push identifier idx
+	;; push identifier arraySize
+	PUSH2 S0, S3
+	;; <
+	LESS
+}
+PUSHCONT {
+	;; push identifier valueLength
+	;; push identifier idx
+	DUP2
+	;; push identifier dict
+	PUSH S4
+	PUSHINT 32
+	DICTUGET
+	PUSHCONT { 
+		NIP
+	}
+	PUSHCONT {
+		NEWC      ; valueBits builder
+		PUSHINT 0 ; valueBits builder 0
+		XCHG S2   ; 0 builder valueBits
+		STUX      ; builder
+		ENDC      ; cell
+		CTOS      ; default_value
+	}
+	IFELSE
+	;; push identifier builder
+	PUSH S5
+	STSLICE
+	POP s5
+	;; ++
+	; expValue
+	; end expValue
+	INC
+	; colValue
+	; end colValue
+}
+WHILE
+; end for
+;; return
+;; push identifier builder
+BLKDROP 4
+; end function abi_encode_packed_macro
+
+.macro deploy_contract_macro
+;; param: my_contract
+;; param: remote_addr
+;; param: grams_value
+;; param: constuctor_id
+;; param: encodedParams
+;; param: flag
+; function deploy_contract_macro
+NEWC
+;; decl: msg_builder
+;; push identifier grams_value
+;; push identifier remote_addr
+PUSH2 S4, S5
+PUSHINT 0
+;; param: value
+;; param: remote_addr
+;; param: bounce
+; function CommonMsgInfoRelaxed__int_msg_info
+;; decl: builder
+PUSHINT 1
+NEWC
+STU 2
+;; push identifier bounce
+PUSH S1
+STIR 1
+PUSHINT 3
+STZEROES
+;; push identifier remote_addr
+PUSH S2
+STSLICER
+;; push identifier value
+PUSH S3
+STGRAMS
+PUSHINT 105
+STZEROES
+;; return
+XCHG s3
+BLKDROP 3
+; end function CommonMsgInfoRelaxed__int_msg_info
+STBR
+PUSHINT 1
+STONES
+;; push identifier my_contract
+PUSH S6
+;; push identifier msg_builder
+;; param: x
+;; param: builder
+; function store_either_for_cell
+;; push identifier x
+DUP2
+CTOS
+;; decl: slice_x
+;; if
+;; push identifier builder
+PUSH S1
+BREMBITS
+;; push identifier slice_x
+PUSH S1
+SBITS
+;; >
+GREATER
+PUSHCONT {
+	;; push identifier builder
+	PUSH S1
+	PUSHINT 1
+	STZEROES
+	POP s2
+	;; push identifier slice_x
+	;; push identifier builder
+	PUSH2 S0, S1
+	STSLICE
+	POP s2
+}
+PUSHCONT {
+	;; push identifier builder
+	PUSH S1
+	PUSHINT 1
+	STONES
+	POP s2
+	;; push identifier x
+	;; push identifier builder
+	BLKPUSH 2, 2
+	STREF
+	POP s2
+}
+IFELSE
+;; end if
+;; return
+;; push identifier builder
+XCHG S1, S2
+DROP2
+; end function store_either_for_cell
+; expValue
+; end expValue
+; colValue
+NIP
+; end colValue
+NEWC
+;; decl: body_builder
+;; push identifier constuctor_id
+PUSH S4
+STUR 32
+;; push identifier encodedParams
+PUSH S3
+STBR
+;; push identifier body_builder
+;; push identifier msg_builder
+;; param: x
+;; param: builder
+; function store_either_for_builder
+;; if
+;; push identifier builder
+PUSH3 S0, S1, S1
+BREMBITS
+;; push identifier x
+PUSH S2
+BBITS
+;; >
+GREATER
+PUSHCONT {
+	PUSHINT 1
+	STZEROES
+	;; push identifier x
+	PUSH S1
+	STBR
+}
+PUSHCONT {
+	PUSHINT 1
+	STONES
+	;; push identifier x
+	PUSH S1
+	STBREFR
+}
+IFELSE
+;; end if
+;; return
+NIP
+; end function store_either_for_builder
+; expValue
+; end expValue
+; colValue
+POP s2
+; end colValue
+;; push identifier msg_builder
+PUSH S1
+ENDC
+;; push identifier flag
+PUSH S3
+SENDRAWMSG
+BLKDROP 8
+; end function deploy_contract_macro
+
+.macro deploy_contract2_macro
+;; param: my_contract
+;; param: remote_addr
+;; param: grams
+;; param: payload
+; function deploy_contract2_macro
+NEWC
+;; decl: msg_builder
+;; push identifier grams
+;; push identifier remote_addr
+PUSH2 S2, S3
+PUSHINT 0
+;; param: value
+;; param: remote_addr
+;; param: bounce
+; function CommonMsgInfoRelaxed__int_msg_info
+;; decl: builder
+PUSHINT 1
+NEWC
+STU 2
+;; push identifier bounce
+PUSH S1
+STIR 1
+PUSHINT 3
+STZEROES
+;; push identifier remote_addr
+PUSH S2
+STSLICER
+;; push identifier value
+PUSH S3
+STGRAMS
+PUSHINT 105
+STZEROES
+;; return
+XCHG s3
+BLKDROP 3
+; end function CommonMsgInfoRelaxed__int_msg_info
+STBR
+PUSHINT 1
+STONES
+;; push identifier my_contract
+PUSH S4
+;; push identifier msg_builder
+;; param: x
+;; param: builder
+; function store_either_for_cell
+;; push identifier x
+DUP2
+CTOS
+;; decl: slice_x
+;; if
+;; push identifier builder
+PUSH S1
+BREMBITS
+;; push identifier slice_x
+PUSH S1
+SBITS
+;; >
+GREATER
+PUSHCONT {
+	;; push identifier builder
+	PUSH S1
+	PUSHINT 1
+	STZEROES
+	POP s2
+	;; push identifier slice_x
+	;; push identifier builder
+	PUSH2 S0, S1
+	STSLICE
+	POP s2
+}
+PUSHCONT {
+	;; push identifier builder
+	PUSH S1
+	PUSHINT 1
+	STONES
+	POP s2
+	;; push identifier x
+	;; push identifier builder
+	BLKPUSH 2, 2
+	STREF
+	POP s2
+}
+IFELSE
+;; end if
+;; return
+;; push identifier builder
+XCHG S1, S2
+DROP2
+; end function store_either_for_cell
+; expValue
+; end expValue
+; colValue
+NIP
+; end colValue
+;; push identifier payload
+;; push identifier msg_builder
+;; param: x
+;; param: builder
+; function store_either_for_cell
+;; push identifier x
+BLKPUSH 3, 1
+CTOS
+;; decl: slice_x
+;; if
+;; push identifier builder
+PUSH S1
+BREMBITS
+;; push identifier slice_x
+PUSH S1
+SBITS
+;; >
+GREATER
+PUSHCONT {
+	;; push identifier builder
+	PUSH S1
+	PUSHINT 1
+	STZEROES
+	POP s2
+	;; push identifier slice_x
+	;; push identifier builder
+	PUSH2 S0, S1
+	STSLICE
+	POP s2
+}
+PUSHCONT {
+	;; push identifier builder
+	PUSH S1
+	PUSHINT 1
+	STONES
+	POP s2
+	;; push identifier x
+	;; push identifier builder
+	BLKPUSH 2, 2
+	STREF
+	POP s2
+}
+IFELSE
+;; end if
+;; return
+;; push identifier builder
+XCHG S1, S2
+DROP2
+; end function store_either_for_cell
+; expValue
+; end expValue
+; colValue
+NIP
+; end colValue
+;; push identifier msg_builder
+DUP
+ENDC
+PUSHINT 1
+SENDRAWMSG
+BLKDROP 5
+; end function deploy_contract2_macro
+
+.macro insert_pubkey_macro
+;; param: my_contract
+;; param: pubkey
+; function insert_pubkey_macro
+;; push identifier my_contract
+PUSH S1
+CTOS
+;; decl: slice
+NEWC
+;; decl: builder
+;; if
+;; push identifier slice
+PUSH S1
+LDU 1
+POP s3
+ISZERO
+PUSHCONT {
+	PUSHINT 1
+	STZEROES
+}
+PUSHCONT {
+	PUSHINT 1
+	STONES
+	;; push identifier slice
+	PUSH S1
+	LDU 32
+	POP s3
+	STUR 32
+}
+IFELSE
+;; end if
+;; if
+;; push identifier slice
+PUSH S1
+LDU 1
+POP s3
+ISZERO
+PUSHCONT {
+	PUSHINT 1
+	STZEROES
+}
+PUSHCONT {
+	PUSHINT 1
+	STONES
+	;; push identifier slice
+	PUSH S1
+	LDU 2
+	POP s3
+	STUR 2
+}
+IFELSE
+;; end if
+;; if
+;; push identifier slice
+PUSH S1
+LDU 1
+POP s3
+ISZERO
+PUSHCONT {
+	PUSHINT 1
+	STZEROES
+}
+PUSHCONT {
+	PUSHINT 1
+	STONES
+	;; push identifier slice
+	PUSH S1
+	LDREF
+	POP s3
+	STREFR
+}
+IFELSE
+;; end if
+;; if
+;; push identifier slice
+PUSH S1
+LDU 1
+POP s3
+NEQINT 1
+PUSHCONT {
+	PUSHINT 55
+	THROWANY
+}
+IF
+;; end if
+PUSHINT 1
+STONES
+NEWC
+;; decl: key_builder
+;; push identifier pubkey
+PUSH S3
+STUR 256
+;; push identifier slice
+PUSH S2
+LDREF
+POP s4
+CTOS
+;; decl: data
+LDDICT
+SWAP
+;; decl: dict
+;; push identifier key_builder
+PUSH S2
+PUSHINT 0
+;; push identifier dict
+PUSH S2
+PUSHINT 64
+DICTUSETB
+NIP
+;; decl: dict_builder
+;; push identifier dict
+DUP
+NEWC
+STDICT
+;; push identifier dict_builder
+DUP
+ENDC
+;; push identifier builder
+PUSH S5
+STREF
+POP s5
+;; if
+;; push identifier slice
+PUSH S5
+LDU 1
+POP s7
+ISZERO
+PUSHCONT {
+	;; push identifier builder
+	PUSH S4
+	PUSHINT 1
+	STZEROES
+	POP s5
+}
+PUSHCONT {
+	;; push identifier builder
+	PUSH S4
+	PUSHINT 1
+	STONES
+	POP s5
+	;; push identifier slice
+	PUSH S5
+	LDREF
+	POP s7
+	;; push identifier builder
+	PUSH S5
+	STREF
+	POP s5
+}
+IFELSE
+;; end if
+;; return
+;; push identifier builder
+PUSH S4
+ENDC
+XCHG s8
+BLKDROP 8
+; end function insert_pubkey_macro
+
+.macro build_state_init_macro
+;; param: code
+;; param: data
+; function build_state_init_macro
+NEWC
+;; decl: builder
+PUSHINT 2
+STZEROES
+PUSHINT 1
+STONES
+;; push identifier code
+PUSH S2
+STREFR
+PUSHINT 1
+STONES
+;; push identifier data
+PUSH S1
+STREFR
+PUSHINT 1
+STZEROES
+;; return
+;; push identifier builder
+DUP
+ENDC
+XCHG s3
+BLKDROP 3
+; end function build_state_init_macro
+
+.macro make_std_address_with_wid_macro
+;; param: _wid
+;; param: _address
+; function make_std_address_with_wid_macro
+;; decl: builder
+PUSHINT 4
+NEWC
+STU 3
+;; push identifier _wid
+PUSH S2
+STIR 8
+;; push identifier _address
+PUSH S1
+STUR 256
+;; return
+;; push identifier builder
+DUP
+ENDC
+CTOS
+XCHG s3
+BLKDROP 3
+; end function make_std_address_with_wid_macro
+
+.macro make_std_address_with_zero_wid_macro
+;; param: _address
+; function make_std_address_with_zero_wid_macro
+;; decl: builder
+PUSHINT 1024
+NEWC
+STU 11
+;; push identifier _address
+PUSH S1
+STUR 256
+;; return
+;; push identifier builder
+ENDC
+CTOS
+NIP
+; end function make_std_address_with_zero_wid_macro
+
+.macro send_external_message_with_dest_macro
+;; param: dest
+;; param: body
+; function send_external_message_with_dest_macro
+;; decl: builder
+PUSHINT 12
+NEWC
+STU 4
+;; push identifier dest
+PUSH S2
+STSLICER
+PUSHINT 97
+STZEROES
+;; if
+;; push identifier builder
+DUP
+BREMBITS
+;; push identifier body
+PUSH S2
+BBITS
+;; >
+GREATER
+PUSHCONT {
+	PUSHINT 1
+	STZEROES
+	;; push identifier body
+	PUSH S1
+	STBR
+}
+PUSHCONT {
+	PUSHINT 1
+	STONES
+	;; push identifier body
+	PUSH S1
+	STBREFR
+}
+IFELSE
+;; end if
+;; push identifier builder
+DUP
+ENDC
+PUSHINT 1
+SENDRAWMSG
+BLKDROP 3
+; end function send_external_message_with_dest_macro
+
+.macro make_address_macro
+;; param: wid
+;; param: addr
+; function make_address_macro
+;; decl: builder
+PUSHINT 4
+NEWC
+STU 3
+;; push identifier wid
+PUSH S2
+STIR 8
+;; push identifier addr
+PUSH S1
+STUR 256
+;; return
+;; push identifier builder
+DUP
+ENDC
+CTOS
+XCHG s3
+BLKDROP 3
+; end function make_address_macro
+
+.macro unpack_address_macro
+;; param: slice
+; function unpack_address_macro
+;; push identifier slice
+DUP
+PARSEMSGADDR
+;; decl: tuple
+;; if
+;; push identifier tuple
+DUP
+FIRST
+NEQINT 2
+PUSHCONT {
+	PUSHINT 53
+	THROWANY
+}
+IF
+;; end if
+;; return
+;; push identifier tuple
+DUP
+THIRD
+;; push identifier tuple
+PUSH S1
+INDEX 3
+PLDU 256
+BLKDROP2 2, 2
+; end function unpack_address_macro
+
+.macro get_rand_seed_macro
+; function get_rand_seed_macro
+;; return
+GETPARAM 6
+; end function get_rand_seed_macro
+
+.macro replay_protection_macro
+;; param: msg_timestamp
+PUSHCONT {
+	; function replay_protection_macro
+	;; if
+	GETGLOB 3
+	;; push identifier msg_timestamp
+	PUSH S1
+	;; <
+	LESS
+	;; short-circuiting &&
+	DUP
+	PUSHCONT {
+		DROP
+		;; push identifier msg_timestamp
+		DUP
+		NOW
+		PUSHINT 1000
+		;; *
+		MUL
+		PUSHINT 1800000
+		;; +
+		ADD
+		;; <
+		LESS
+	}
+	IF
+	PUSHCONT {
+		;; push identifier msg_timestamp
+		;; return
+		SETGLOB 3
+	}
+	IFJMP
+	;; end if
+	PUSHINT 52
+	THROW 52
+	; end function replay_protection_macro
+}
+CALLX
+
+.macro message_balance_macro
+; function message_balance_macro
+;; ret param: balance
+PUSHINT 0
+;; if
+DEPTH
+ADDCONST -5
+PICK
+PUSHCONT {
+	DEPTH
+	ADDCONST -2
+	PICK
+	; expValue
+	; end expValue
+	; colValue
+	NIP
+	; end colValue
+}
+IFNOT
+;; end if
+;; returning named params
+; end function message_balance_macro
+
+.macro address2uint_macro
+;; param: slice
+; function address2uint_macro
+;; push identifier slice
+;; decl: addr
+;; return
+;; push identifier addr
+;; push identifier addr
+PARSEMSGADDR
+INDEX 3
+DUP
+SBITS
+PLDUX
+; end function address2uint_macro
+

@@ -1,0 +1,94 @@
+{
+	"ABI version": 2,
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"nameStr","type":"bytes"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setHelloText",
+			"inputs": [
+				{"name":"text","type":"bytes"}
+			],
+			"outputs": [
+				{"name":"oldText","type":"bytes"}
+			]
+		},
+		{
+			"name": "addSymbol",
+			"inputs": [
+				{"name":"text","type":"bytes"}
+			],
+			"outputs": [
+				{"name":"text1","type":"bytes"}
+			]
+		},
+		{
+			"name": "complexSymbol",
+			"inputs": [
+				{"name":"rootA","type":"address"},
+				{"name":"rootB","type":"address"}
+			],
+			"outputs": [
+				{"name":"symbol","type":"bytes"}
+			]
+		},
+		{
+			"name": "setDetails",
+			"inputs": [
+				{"components":[{"name":"name","type":"bytes"},{"name":"symbol","type":"bytes"},{"name":"decimals","type":"uint8"},{"name":"wallet_code","type":"cell"},{"name":"root_public_key","type":"uint256"},{"name":"root_owner_address","type":"address"},{"name":"total_supply","type":"uint128"}],"name":"Details","type":"tuple"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getNameBytes",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"text","type":"bytes"}
+			]
+		},
+		{
+			"name": "getSymbolBytes",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"text","type":"bytes"}
+			]
+		},
+		{
+			"name": "getNameString",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"text","type":"bytes"}
+			]
+		},
+		{
+			"name": "getSymbolString",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"text","type":"bytes"}
+			]
+		},
+		{
+			"name": "getHelloText",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"text","type":"bytes"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	]
+}
